@@ -12,7 +12,14 @@ const app_controller_1 = require("./app.controller");
 const app_service_1 = require("./app.service");
 const config_1 = require("@nestjs/config");
 const configuration_1 = require("../config/configuration");
+const auth_middleware_1 = require("./interceptors/auth.middleware");
+const cookieSession = require('cookie-session');
 let AppModule = class AppModule {
+    configure(consumer) {
+        consumer
+            .apply(auth_middleware_1.AuthMiddleWare)
+            .forRoutes('*');
+    }
 };
 AppModule = __decorate([
     (0, common_1.Module)({
