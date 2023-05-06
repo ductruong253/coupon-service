@@ -1,7 +1,7 @@
 import { MiddlewareConsumer, Module } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-import { ConfigModule } from '@nestjs/config';
+import { ConfigModule, ConfigService } from '@nestjs/config';
 import config from '../config/configuration'
 import { AuthMiddleWare } from './interceptors/auth.middleware';
 import { TypeOrmModule } from '@nestjs/typeorm';
@@ -10,18 +10,23 @@ const cookieSession = require('cookie-session');
 @Module({
   imports: [
     ConfigModule.forRoot({
-      load: [config],
-      isGlobal: true
+      isGlobal: true,
+      envFilePath: `config/.env.${process.env.NODE_ENV}`,
     }),
-    TypeOrmModule.forRoot({
-      type: 'postgres',
-      host: 'localhost',
-      port: 5432,
-      username: 'postgres',
-      password: 'admin',
-      database: 'coupon-info',
-      synchronize: true,
-      autoLoadEntities: true
+    TypeOrmModule.forRootAsync({
+      inject: [ConfigService],
+      useFactory: (config: ConfigService) => {
+        return {
+          type: 'postgres',
+          host: config.get('DB_HOST'),
+          port: config.get('DB_PORT'),
+          username: config.get('DB_USERNAME'),
+          password: config.get('DB_PASSWORD'),
+          database: config.get('DB_NAME'),
+          synchronize: true,
+          autoLoadEntities: true
+        }
+      }
     })
   ],
   controllers: [AppController],

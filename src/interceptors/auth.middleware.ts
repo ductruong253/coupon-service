@@ -13,7 +13,7 @@ declare global {
 @Injectable()
 export class AuthMiddleWare implements NestMiddleware {
     constructor(private readonly configService: ConfigService) {}
-    readonly secret = this.configService.get('secret')
+    readonly secret = this.configService.get('SECRET')
     use(req: Request, res: Response, next: NextFunction) {
         const authHeader = req.headers.authorization
         const [_, token] = authHeader.split(' ')

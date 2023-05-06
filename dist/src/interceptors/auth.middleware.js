@@ -15,7 +15,7 @@ const config_1 = require("@nestjs/config");
 let AuthMiddleWare = class AuthMiddleWare {
     constructor(configService) {
         this.configService = configService;
-        this.secret = this.configService.get('secret');
+        this.secret = this.configService.get('SECRET');
     }
     use(req, res, next) {
         const authHeader = req.headers.authorization;
