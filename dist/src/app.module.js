@@ -13,6 +13,7 @@ const app_service_1 = require("./app.service");
 const config_1 = require("@nestjs/config");
 const auth_middleware_1 = require("./interceptors/auth.middleware");
 const typeorm_1 = require("@nestjs/typeorm");
+const coupon_info_module_1 = require("./coupon-info/coupon-info.module");
 const cookieSession = require('cookie-session');
 let AppModule = class AppModule {
     configure(consumer) {
@@ -42,7 +43,8 @@ AppModule = __decorate([
                         autoLoadEntities: true
                     };
                 }
-            })
+            }),
+            coupon_info_module_1.CouponInfoModule
         ],
         controllers: [app_controller_1.AppController],
         providers: [app_service_1.AppService],

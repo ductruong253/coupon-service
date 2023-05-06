@@ -5,6 +5,7 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
 import config from '../config/configuration'
 import { AuthMiddleWare } from './interceptors/auth.middleware';
 import { TypeOrmModule } from '@nestjs/typeorm';
+import { CouponInfoModule } from './coupon-info/coupon-info.module';
 const cookieSession = require('cookie-session');
 
 @Module({
@@ -27,7 +28,8 @@ const cookieSession = require('cookie-session');
           autoLoadEntities: true
         }
       }
-    })
+    }),
+    CouponInfoModule
   ],
   controllers: [AppController],
   providers: [AppService],
