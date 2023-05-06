@@ -18,12 +18,12 @@ const typeorm_1 = require("typeorm");
 const typeorm_2 = require("@nestjs/typeorm");
 const coupon_info_entity_1 = require("./coupon-info.entity");
 const approval_status_enum_1 = require("./enums/approval-status.enum");
+const coupon_status_enum_1 = require("./enums/coupon-status.enum");
 let CouponInfoService = class CouponInfoService {
     constructor(repo) {
         this.repo = repo;
     }
     async create(createDto) {
-        console.log(this.checkExistence(createDto.couponCode));
         if (await this.checkExistence(createDto.couponCode)) {
             throw new common_1.BadRequestException('couponCode existed');
         }
@@ -32,6 +32,7 @@ let CouponInfoService = class CouponInfoService {
         couponInfo.createdDate = new Date();
         couponInfo.isActive = false;
         couponInfo.currentVoucherCount = 0;
+        couponInfo.status = coupon_status_enum_1.CouponStatusEnum.CREATED;
         this.repo.save(couponInfo);
         return couponInfo;
     }
@@ -46,7 +47,6 @@ let CouponInfoService = class CouponInfoService {
     }
     async checkExistence(couponCode) {
         const coupon = await this.findByCouponCode(couponCode);
-        console.log('Coupon:' + coupon);
         if (coupon)
             return true;
         return false;

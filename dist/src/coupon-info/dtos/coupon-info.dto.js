@@ -14,6 +14,7 @@ const class_transformer_1 = require("class-transformer");
 const approval_status_enum_1 = require("../enums/approval-status.enum");
 const coupon_type_enum_1 = require("../enums/coupon-type.enum");
 const currency_enum_1 = require("../enums/currency.enum");
+const coupon_status_enum_1 = require("../enums/coupon-status.enum");
 class CouponInfoDto {
 }
 __decorate([
@@ -50,6 +51,10 @@ __decorate([
 ], CouponInfoDto.prototype, "approvalStatus", void 0);
 __decorate([
     (0, class_transformer_1.Expose)(),
+    __metadata("design:type", String)
+], CouponInfoDto.prototype, "status", void 0);
+__decorate([
+    (0, class_transformer_1.Expose)(),
     __metadata("design:type", Boolean)
 ], CouponInfoDto.prototype, "isActive", void 0);
 __decorate([
@@ -71,7 +76,7 @@ __decorate([
 __decorate([
     (0, class_transformer_1.Expose)(),
     __metadata("design:type", Number)
-], CouponInfoDto.prototype, "discountValue", void 0);
+], CouponInfoDto.prototype, "maxDiscountValue", void 0);
 __decorate([
     (0, class_transformer_1.Expose)(),
     __metadata("design:type", String)

@@ -2,6 +2,7 @@ import { Entity, PrimaryGeneratedColumn, Column, Timestamp } from 'typeorm'
 import { ApprovalStatusEnum } from './enums/approval-status.enum'
 import { CouponTypeEnum } from './enums/coupon-type.enum'
 import { CurrencyEnum } from './enums/currency.enum'
+import { CouponStatusEnum } from './enums/coupon-status.enum'
 
 @Entity()
 export class CouponInfo {
@@ -24,6 +25,8 @@ export class CouponInfo {
     @Column()
     isActive: boolean
     @Column()
+    status: CouponStatusEnum
+    @Column()
     currentVoucherCount: number
     @Column()
     voucherLimit: number
@@ -32,7 +35,7 @@ export class CouponInfo {
     @Column()
     type: CouponTypeEnum
     @Column()
-    discountValue: number
+    maxDiscountValue: number
     @Column()
     unit: CurrencyEnum
     @Column()

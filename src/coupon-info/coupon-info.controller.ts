@@ -5,7 +5,7 @@ import { CreateCouponInfoDto } from './dtos/create-coupon-info.dto';
 import { AuthGuard } from 'src/guards/auth.guard';
 import { CouponInfoDto } from './dtos/coupon-info.dto';
 
-@Controller('api/coupon-info')
+@Controller('api/coupon/')
 @Serialize(CouponInfoDto)
 @UseGuards(AuthGuard)
 export class CouponInfoController {
@@ -13,11 +13,11 @@ export class CouponInfoController {
 
     }
 
-    @Get('/:id')
-    async findCouponInfo(@Param('id') id: string) {
-        const couponInfo = await this.couponInfoService.findOne(parseInt(id))
+    @Get('couponCode/:couponCode')
+    async findCouponInfoByCode(@Param('couponCode') couponCode: string) {
+        const couponInfo = await this.couponInfoService.findByCouponCode(couponCode)
         if (!couponInfo){
-            throw new NotFoundException('Coupon info not found')
+            throw new NotFoundException('Coupon not found')
         }
         return couponInfo
     }
@@ -26,4 +26,6 @@ export class CouponInfoController {
     create(@Body() body: CreateCouponInfoDto) {
         return this.couponInfoService.create(body);
     }
+
+    
 }

@@ -9,7 +9,7 @@ export declare class CreateCouponInfoDto {
     voucherLimit: number;
     conditions: string;
     type: CouponTypeEnum;
-    discountValue: number;
+    maxDiscountValue: number;
     unit: CurrencyEnum;
     discountPercent: number;
 }

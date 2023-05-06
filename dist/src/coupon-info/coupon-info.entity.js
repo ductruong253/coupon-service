@@ -14,6 +14,7 @@ const typeorm_1 = require("typeorm");
 const approval_status_enum_1 = require("./enums/approval-status.enum");
 const coupon_type_enum_1 = require("./enums/coupon-type.enum");
 const currency_enum_1 = require("./enums/currency.enum");
+const coupon_status_enum_1 = require("./enums/coupon-status.enum");
 let CouponInfo = class CouponInfo {
 };
 __decorate([
@@ -54,6 +55,10 @@ __decorate([
 ], CouponInfo.prototype, "isActive", void 0);
 __decorate([
     (0, typeorm_1.Column)(),
+    __metadata("design:type", String)
+], CouponInfo.prototype, "status", void 0);
+__decorate([
+    (0, typeorm_1.Column)(),
     __metadata("design:type", Number)
 ], CouponInfo.prototype, "currentVoucherCount", void 0);
 __decorate([
@@ -71,7 +76,7 @@ __decorate([
 __decorate([
     (0, typeorm_1.Column)(),
     __metadata("design:type", Number)
-], CouponInfo.prototype, "discountValue", void 0);
+], CouponInfo.prototype, "maxDiscountValue", void 0);
 __decorate([
     (0, typeorm_1.Column)(),
     __metadata("design:type", String)

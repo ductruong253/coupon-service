@@ -1,7 +1,8 @@
-import { Expose } from "class-transformer"
+import { Expose, Transform } from "class-transformer"
 import { ApprovalStatusEnum } from "../enums/approval-status.enum"
 import { CouponTypeEnum } from "../enums/coupon-type.enum"
 import { CurrencyEnum } from "../enums/currency.enum"
+import { CouponStatusEnum } from "../enums/coupon-status.enum"
 
 export class CouponInfoDto {
     @Expose()
@@ -21,6 +22,8 @@ export class CouponInfoDto {
     @Expose()
     approvalStatus: ApprovalStatusEnum
     @Expose()
+    status: CouponStatusEnum
+    @Expose()
     isActive: boolean
     @Expose()
     currentVoucherCount: number
@@ -31,7 +34,7 @@ export class CouponInfoDto {
     @Expose()
     type: CouponTypeEnum
     @Expose()
-    discountValue: number
+    maxDiscountValue: number
     @Expose()
     unit: CurrencyEnum
     @Expose()
