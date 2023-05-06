@@ -3,8 +3,10 @@ import { CouponInfoService } from './coupon-info.service';
 import { Serialize } from 'src/interceptors/serialize.interceptor';
 import { CreateCouponInfoDto } from './dtos/create-coupon-info.dto';
 import { AuthGuard } from 'src/guards/auth.guard';
+import { CouponInfoDto } from './dtos/coupon-info.dto';
 
 @Controller('api/coupon-info')
+@Serialize(CouponInfoDto)
 @UseGuards(AuthGuard)
 export class CouponInfoController {
     constructor(private couponInfoService: CouponInfoService) {
@@ -21,7 +23,6 @@ export class CouponInfoController {
     }
 
     @Post()
-    @Serialize(CreateCouponInfoDto)
     create(@Body() body: CreateCouponInfoDto) {
         return this.couponInfoService.create(body);
     }

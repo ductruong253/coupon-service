@@ -18,6 +18,7 @@ const coupon_info_service_1 = require("./coupon-info.service");
 const serialize_interceptor_1 = require("../interceptors/serialize.interceptor");
 const create_coupon_info_dto_1 = require("./dtos/create-coupon-info.dto");
 const auth_guard_1 = require("../guards/auth.guard");
+const coupon_info_dto_1 = require("./dtos/coupon-info.dto");
 let CouponInfoController = class CouponInfoController {
     constructor(couponInfoService) {
         this.couponInfoService = couponInfoService;
@@ -42,7 +43,6 @@ __decorate([
 ], CouponInfoController.prototype, "findCouponInfo", null);
 __decorate([
     (0, common_1.Post)(),
-    (0, serialize_interceptor_1.Serialize)(create_coupon_info_dto_1.CreateCouponInfoDto),
     __param(0, (0, common_1.Body)()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [create_coupon_info_dto_1.CreateCouponInfoDto]),
@@ -50,6 +50,7 @@ __decorate([
 ], CouponInfoController.prototype, "create", null);
 CouponInfoController = __decorate([
     (0, common_1.Controller)('api/coupon-info'),
+    (0, serialize_interceptor_1.Serialize)(coupon_info_dto_1.CouponInfoDto),
     (0, common_1.UseGuards)(auth_guard_1.AuthGuard),
     __metadata("design:paramtypes", [coupon_info_service_1.CouponInfoService])
 ], CouponInfoController);

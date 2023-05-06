@@ -12,8 +12,9 @@ export class CouponInfoService {
 
     }
 
-    create(createDto: CreateCouponInfoDto) {
-        if (this.checkExistence(createDto.couponCode)) {
+    async create(createDto: CreateCouponInfoDto) {
+        console.log(this.checkExistence(createDto.couponCode))
+        if (await this.checkExistence(createDto.couponCode)) {
             throw new BadRequestException('couponCode existed')
         }
         const couponInfo = this.repo.create(createDto)
@@ -31,12 +32,13 @@ export class CouponInfoService {
     }
 
     async findByCouponCode(couponCode: string) {
-        const coupon = await this.repo.find({where: {couponCode}})
+        const coupon = await this.repo.findOneBy({couponCode})
         return coupon
     }
 
-    private checkExistence(couponCode: string): boolean {
-        const coupon = this.findByCouponCode(couponCode);
+    private async checkExistence(couponCode: string) {
+        const coupon = await this.findByCouponCode(couponCode);
+        console.log('Coupon:' + coupon)
         if (coupon) return true
         return false
     }
