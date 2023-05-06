@@ -9,26 +9,13 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.AuthMiddleWare = void 0;
-const common_1 = require("@nestjs/common");
-const config_1 = require("@nestjs/config");
-let AuthMiddleWare = class AuthMiddleWare {
-    constructor(configService) {
-        this.configService = configService;
-        this.secret = this.configService.get('SECRET');
-    }
-    use(req, res, next) {
-        const authHeader = req.headers.authorization;
-        const [_, token] = authHeader.split(' ');
-        if (token && token === this.secret) {
-            req.authorized = true;
-        }
-        next();
-    }
-};
-AuthMiddleWare = __decorate([
-    (0, common_1.Injectable)(),
-    __metadata("design:paramtypes", [config_1.ConfigService])
-], AuthMiddleWare);
-exports.AuthMiddleWare = AuthMiddleWare;
-//# sourceMappingURL=auth.middleware.js.map
+exports.CreateCouponInfoDto = void 0;
+const class_validator_1 = require("class-validator");
+class CreateCouponInfoDto {
+}
+__decorate([
+    (0, class_validator_1.IsString)(),
+    __metadata("design:type", String)
+], CreateCouponInfoDto.prototype, "description", void 0);
+exports.CreateCouponInfoDto = CreateCouponInfoDto;
+//# sourceMappingURL=create-coupon-info.dto.js.map

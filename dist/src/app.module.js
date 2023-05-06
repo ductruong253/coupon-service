@@ -11,8 +11,9 @@ const common_1 = require("@nestjs/common");
 const app_controller_1 = require("./app.controller");
 const app_service_1 = require("./app.service");
 const config_1 = require("@nestjs/config");
-const configuration_1 = require("../config/configuration");
 const auth_middleware_1 = require("./interceptors/auth.middleware");
+const typeorm_1 = require("@nestjs/typeorm");
+const coupon_info_module_1 = require("./coupon-info/coupon-info.module");
 const cookieSession = require('cookie-session');
 let AppModule = class AppModule {
     configure(consumer) {
@@ -23,10 +24,28 @@ let AppModule = class AppModule {
 };
 AppModule = __decorate([
     (0, common_1.Module)({
-        imports: [config_1.ConfigModule.forRoot({
-                load: [configuration_1.default],
-                isGlobal: true
-            })],
+        imports: [
+            config_1.ConfigModule.forRoot({
+                isGlobal: true,
+                envFilePath: `config/.env.${process.env.NODE_ENV}`,
+            }),
+            typeorm_1.TypeOrmModule.forRootAsync({
+                inject: [config_1.ConfigService],
+                useFactory: (config) => {
+                    return {
+                        type: 'postgres',
+                        host: config.get('DB_HOST'),
+                        port: config.get('DB_PORT'),
+                        username: config.get('DB_USERNAME'),
+                        password: config.get('DB_PASSWORD'),
+                        database: config.get('DB_NAME'),
+                        synchronize: true,
+                        autoLoadEntities: true
+                    };
+                }
+            }),
+            coupon_info_module_1.CouponInfoModule
+        ],
         controllers: [app_controller_1.AppController],
         providers: [app_service_1.AppService],
     })

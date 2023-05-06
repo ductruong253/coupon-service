@@ -9,26 +9,20 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.AuthMiddleWare = void 0;
-const common_1 = require("@nestjs/common");
-const config_1 = require("@nestjs/config");
-let AuthMiddleWare = class AuthMiddleWare {
-    constructor(configService) {
-        this.configService = configService;
-        this.secret = this.configService.get('SECRET');
-    }
-    use(req, res, next) {
-        const authHeader = req.headers.authorization;
-        const [_, token] = authHeader.split(' ');
-        if (token && token === this.secret) {
-            req.authorized = true;
-        }
-        next();
-    }
+exports.CouponInfo = void 0;
+const typeorm_1 = require("typeorm");
+let CouponInfo = class CouponInfo {
 };
-AuthMiddleWare = __decorate([
-    (0, common_1.Injectable)(),
-    __metadata("design:paramtypes", [config_1.ConfigService])
-], AuthMiddleWare);
-exports.AuthMiddleWare = AuthMiddleWare;
-//# sourceMappingURL=auth.middleware.js.map
+__decorate([
+    (0, typeorm_1.PrimaryGeneratedColumn)(),
+    __metadata("design:type", Number)
+], CouponInfo.prototype, "id", void 0);
+__decorate([
+    (0, typeorm_1.Column)(),
+    __metadata("design:type", String)
+], CouponInfo.prototype, "description", void 0);
+CouponInfo = __decorate([
+    (0, typeorm_1.Entity)()
+], CouponInfo);
+exports.CouponInfo = CouponInfo;
+//# sourceMappingURL=coupon-info.entity.js.map
