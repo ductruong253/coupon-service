@@ -1,9 +1,11 @@
-import { Body, Controller, Get, NotFoundException, Param, Post } from '@nestjs/common';
+import { Body, Controller, Get, NotFoundException, Param, Post, UseGuards } from '@nestjs/common';
 import { CouponInfoService } from './coupon-info.service';
 import { Serialize } from 'src/interceptors/serialize.interceptor';
 import { CreateCouponInfoDto } from './dtos/create-coupon-info.dto';
+import { AuthGuard } from 'src/guards/auth.guard';
 
 @Controller('api/coupon-info')
+@UseGuards(AuthGuard)
 export class CouponInfoController {
     constructor(private couponInfoService: CouponInfoService) {
 
