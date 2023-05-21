@@ -85,6 +85,10 @@ __decorate([
     (0, typeorm_1.Column)(),
     __metadata("design:type", Number)
 ], CouponInfo.prototype, "discountPercent", void 0);
+__decorate([
+    (0, typeorm_1.Column)(),
+    __metadata("design:type", String)
+], CouponInfo.prototype, "createdBy", void 0);
 CouponInfo = __decorate([
     (0, typeorm_1.Entity)()
 ], CouponInfo);

@@ -85,5 +85,9 @@ __decorate([
     (0, class_transformer_1.Expose)(),
     __metadata("design:type", Number)
 ], CouponInfoDto.prototype, "discountPercent", void 0);
+__decorate([
+    (0, class_transformer_1.Expose)(),
+    __metadata("design:type", String)
+], CouponInfoDto.prototype, "createdBy", void 0);
 exports.CouponInfoDto = CouponInfoDto;
 //# sourceMappingURL=coupon-info.dto.js.map

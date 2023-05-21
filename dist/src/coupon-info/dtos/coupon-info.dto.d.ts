@@ -1,7 +1,7 @@
-import { ApprovalStatusEnum } from "../enums/approval-status.enum";
-import { CouponTypeEnum } from "../enums/coupon-type.enum";
-import { CurrencyEnum } from "../enums/currency.enum";
-import { CouponStatusEnum } from "../enums/coupon-status.enum";
+import { ApprovalStatusEnum } from '../enums/approval-status.enum';
+import { CouponTypeEnum } from '../enums/coupon-type.enum';
+import { CurrencyEnum } from '../enums/currency.enum';
+import { CouponStatusEnum } from '../enums/coupon-status.enum';
 export declare class CouponInfoDto {
     id: number;
     description: string;
@@ -20,4 +20,5 @@ export declare class CouponInfoDto {
     maxDiscountValue: number;
     unit: CurrencyEnum;
     discountPercent: number;
+    createdBy: string;
 }

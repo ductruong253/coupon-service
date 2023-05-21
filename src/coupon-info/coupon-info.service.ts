@@ -31,8 +31,8 @@ export class CouponInfoService {
     return this.repo.findOneBy({ id });
   }
 
-  async findByVendorCodeCouponCode(vendorCode: string, couponCode: string) {
-    const coupon = await this.repo.findBy({ vendorCode, couponCode });
+  async findOneByVendorCodeCouponCode(vendorCode: string, couponCode: string) {
+    const coupon = await this.repo.findOneBy({ vendorCode, couponCode });
     return coupon;
   }
 
@@ -42,7 +42,7 @@ export class CouponInfoService {
   }
 
   private async checkExistence(vendorCode: string, couponCode: string) {
-    const coupon = await this.findByVendorCodeCouponCode(
+    const coupon = await this.findOneByVendorCodeCouponCode(
       vendorCode,
       couponCode,
     );

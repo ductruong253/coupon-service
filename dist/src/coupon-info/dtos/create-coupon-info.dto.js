@@ -68,5 +68,9 @@ __decorate([
     (0, class_validator_1.Max)(100),
     __metadata("design:type", Number)
 ], CreateCouponInfoDto.prototype, "discountPercent", void 0);
+__decorate([
+    (0, class_validator_1.IsString)(),
+    __metadata("design:type", String)
+], CreateCouponInfoDto.prototype, "createdBy", void 0);
 exports.CreateCouponInfoDto = CreateCouponInfoDto;
 //# sourceMappingURL=create-coupon-info.dto.js.map

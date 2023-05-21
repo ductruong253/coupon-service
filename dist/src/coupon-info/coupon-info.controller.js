@@ -24,7 +24,7 @@ let CouponInfoController = class CouponInfoController {
         this.couponInfoService = couponInfoService;
     }
     async findCouponInfoByCode(couponCode, vendorCode) {
-        const couponInfo = await this.couponInfoService.findByVendorCodeCouponCode(vendorCode, couponCode);
+        const couponInfo = await this.couponInfoService.findOneByVendorCodeCouponCode(vendorCode, couponCode);
         if (!couponInfo) {
             throw new common_1.NotFoundException('Coupon not found');
         }

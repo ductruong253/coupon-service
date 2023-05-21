@@ -39,4 +39,6 @@ export class CouponInfoDto {
   unit: CurrencyEnum;
   @Expose()
   discountPercent: number;
+  @Expose()
+  createdBy: string;
 }

@@ -19,9 +19,14 @@ let AuthMiddleWare = class AuthMiddleWare {
     }
     use(req, res, next) {
         const authHeader = req.headers.authorization;
-        const [_, token] = authHeader.split(' ');
-        if (token && token === this.secret) {
-            req.authorized = true;
+        if (authHeader) {
+            const [_, token] = authHeader.split(' ');
+            if (token && token === this.secret) {
+                req.authorized = true;
+            }
+        }
+        else {
+            req.authorized = false;
         }
         next();
     }

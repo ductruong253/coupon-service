@@ -41,8 +41,8 @@ let CouponInfoService = class CouponInfoService {
             return null;
         return this.repo.findOneBy({ id });
     }
-    async findByVendorCodeCouponCode(vendorCode, couponCode) {
-        const coupon = await this.repo.findBy({ vendorCode, couponCode });
+    async findOneByVendorCodeCouponCode(vendorCode, couponCode) {
+        const coupon = await this.repo.findOneBy({ vendorCode, couponCode });
         return coupon;
     }
     async findByVendorCode(vendorCode) {
@@ -50,7 +50,7 @@ let CouponInfoService = class CouponInfoService {
         return coupon;
     }
     async checkExistence(vendorCode, couponCode) {
-        const coupon = await this.findByVendorCodeCouponCode(vendorCode, couponCode);
+        const coupon = await this.findOneByVendorCodeCouponCode(vendorCode, couponCode);
         if (coupon)
             return true;
         return false;
