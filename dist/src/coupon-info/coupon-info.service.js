@@ -24,7 +24,7 @@ let CouponInfoService = class CouponInfoService {
         this.repo = repo;
     }
     async create(createDto) {
-        if (await this.checkExistence(createDto.couponCode)) {
+        if (await this.checkExistence(createDto.vendorCode, createDto.couponCode)) {
             throw new common_1.BadRequestException('couponCode existed');
         }
         const couponInfo = this.repo.create(createDto);
@@ -41,12 +41,16 @@ let CouponInfoService = class CouponInfoService {
             return null;
         return this.repo.findOneBy({ id });
     }
-    async findByCouponCode(couponCode) {
-        const coupon = await this.repo.findOneBy({ couponCode });
+    async findByVendorCodeCouponCode(vendorCode, couponCode) {
+        const coupon = await this.repo.findBy({ vendorCode, couponCode });
         return coupon;
     }
-    async checkExistence(couponCode) {
-        const coupon = await this.findByCouponCode(couponCode);
+    async findByVendorCode(vendorCode) {
+        const coupon = await this.repo.findBy({ vendorCode });
+        return coupon;
+    }
+    async checkExistence(vendorCode, couponCode) {
+        const coupon = await this.findByVendorCodeCouponCode(vendorCode, couponCode);
         if (coupon)
             return true;
         return false;

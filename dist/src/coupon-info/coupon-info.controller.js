@@ -23,8 +23,15 @@ let CouponInfoController = class CouponInfoController {
     constructor(couponInfoService) {
         this.couponInfoService = couponInfoService;
     }
-    async findCouponInfoByCode(couponCode) {
-        const couponInfo = await this.couponInfoService.findByCouponCode(couponCode);
+    async findCouponInfoByCode(couponCode, vendorCode) {
+        const couponInfo = await this.couponInfoService.findByVendorCodeCouponCode(vendorCode, couponCode);
+        if (!couponInfo) {
+            throw new common_1.NotFoundException('Coupon not found');
+        }
+        return couponInfo;
+    }
+    async findCouponVendorCode(vendorCode) {
+        const couponInfo = await this.couponInfoService.findByVendorCode(vendorCode);
         if (!couponInfo) {
             throw new common_1.NotFoundException('Coupon not found');
         }
@@ -35,12 +42,20 @@ let CouponInfoController = class CouponInfoController {
     }
 };
 __decorate([
-    (0, common_1.Get)('couponCode/:couponCode'),
+    (0, common_1.Get)('vendorCode/:vendorCode/couponCode/:couponCode'),
     __param(0, (0, common_1.Param)('couponCode')),
+    __param(1, (0, common_1.Param)('vendorCode')),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [String, String]),
+    __metadata("design:returntype", Promise)
+], CouponInfoController.prototype, "findCouponInfoByCode", null);
+__decorate([
+    (0, common_1.Get)('vendorCode/:vendorCode'),
+    __param(0, (0, common_1.Param)('vendorCode')),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [String]),
     __metadata("design:returntype", Promise)
-], CouponInfoController.prototype, "findCouponInfoByCode", null);
+], CouponInfoController.prototype, "findCouponVendorCode", null);
 __decorate([
     (0, common_1.Post)(),
     __param(0, (0, common_1.Body)()),

@@ -13,9 +13,18 @@ export class CouponInfoController {
 
     }
 
-    @Get('couponCode/:couponCode')
-    async findCouponInfoByCode(@Param('couponCode') couponCode: string) {
-        const couponInfo = await this.couponInfoService.findByCouponCode(couponCode)
+    @Get('vendorCode/:vendorCode/couponCode/:couponCode')
+    async findCouponInfoByCode(@Param('couponCode') couponCode: string, @Param('vendorCode') vendorCode: string) {
+        const couponInfo = await this.couponInfoService.findByVendorCodeCouponCode(vendorCode, couponCode)
+        if (!couponInfo){
+            throw new NotFoundException('Coupon not found')
+        }
+        return couponInfo
+    }
+
+    @Get('vendorCode/:vendorCode')
+    async findCouponVendorCode(@Param('vendorCode') vendorCode: string) {
+        const couponInfo = await this.couponInfoService.findByVendorCode(vendorCode)
         if (!couponInfo){
             throw new NotFoundException('Coupon not found')
         }

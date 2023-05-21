@@ -6,6 +6,7 @@ export declare class CouponInfoService {
     constructor(repo: Repository<CouponInfo>);
     create(createDto: CreateCouponInfoDto): Promise<CouponInfo>;
     findOne(id: number): Promise<CouponInfo>;
-    findByCouponCode(couponCode: string): Promise<CouponInfo>;
+    findByVendorCodeCouponCode(vendorCode: string, couponCode: string): Promise<CouponInfo[]>;
+    findByVendorCode(vendorCode: string): Promise<CouponInfo[]>;
     private checkExistence;
 }
