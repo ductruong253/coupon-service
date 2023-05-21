@@ -7,4 +7,7 @@ export class CouponInfo {
 
     @Column()
     description: string
+
+    @Column()
+    vendorCode: string
 }

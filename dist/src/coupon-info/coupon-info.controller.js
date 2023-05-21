@@ -31,6 +31,10 @@ let CouponInfoController = class CouponInfoController {
     create(body) {
         return this.couponInfoService.create(body);
     }
+    async getCouponsByVendor(id) {
+        const coupons = await this.couponInfoService.find(parseInt(id));
+        return coupons;
+    }
 };
 __decorate([
     (0, common_1.Get)('/:id'),
@@ -47,6 +51,13 @@ __decorate([
     __metadata("design:paramtypes", [create_coupon_info_dto_1.CreateCouponInfoDto]),
     __metadata("design:returntype", void 0)
 ], CouponInfoController.prototype, "create", null);
+__decorate([
+    (0, common_1.Get)('/:id'),
+    __param(0, (0, common_1.Param)('id')),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [String]),
+    __metadata("design:returntype", Promise)
+], CouponInfoController.prototype, "getCouponsByVendor", null);
 CouponInfoController = __decorate([
     (0, common_1.Controller)('api/coupon-info'),
     __metadata("design:paramtypes", [coupon_info_service_1.CouponInfoService])

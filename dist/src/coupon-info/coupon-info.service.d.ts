@@ -6,4 +6,5 @@ export declare class CouponInfoService {
     constructor(repo: Repository<CouponInfo>);
     create(createDto: CreateCouponInfoDto): Promise<CouponInfo>;
     findOne(id: number): Promise<CouponInfo>;
+    find(id: number): Promise<CouponInfo[]>;
 }

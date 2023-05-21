@@ -2,6 +2,7 @@ import { Body, Controller, Get, NotFoundException, Param, Post } from '@nestjs/c
 import { CouponInfoService } from './coupon-info.service';
 import { Serialize } from 'src/interceptors/serialize.interceptor';
 import { CreateCouponInfoDto } from './dtos/create-coupon-info.dto';
+import { CouponInfo } from './coupon-info.entity';
 
 @Controller('api/coupon-info')
 export class CouponInfoController {
@@ -22,5 +23,10 @@ export class CouponInfoController {
     @Serialize(CreateCouponInfoDto)
     create(@Body() body: CreateCouponInfoDto) {
         return this.couponInfoService.create(body);
+    }
+
+    @Get('/:vendorCode')
+    getCouponsByBrandCode(@Param('vendorCode') vendorCode: string) : CouponInfo[] {
+      return this.couponInfoService.getCouponsByBrandCode(vendorCode);
     }
 }

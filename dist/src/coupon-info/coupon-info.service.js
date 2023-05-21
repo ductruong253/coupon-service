@@ -30,6 +30,9 @@ let CouponInfoService = class CouponInfoService {
             return null;
         return this.repo.findOneBy({ id });
     }
+    find(id) {
+        return this.repo.find({ where: { id } });
+    }
 };
 CouponInfoService = __decorate([
     (0, common_1.Injectable)(),

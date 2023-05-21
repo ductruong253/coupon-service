@@ -5,4 +5,5 @@ export declare class CouponInfoController {
     constructor(couponInfoService: CouponInfoService);
     findCouponInfo(id: string): Promise<import("./coupon-info.entity").CouponInfo>;
     create(body: CreateCouponInfoDto): Promise<import("./coupon-info.entity").CouponInfo>;
+    getCouponsByVendor(id: string): Promise<import("./coupon-info.entity").CouponInfo[]>;
 }
