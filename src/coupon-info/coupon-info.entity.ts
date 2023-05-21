@@ -40,4 +40,6 @@ export class CouponInfo {
   unit: CurrencyEnum;
   @Column()
   discountPercent: number;
+  @Column()
+  createdBy: string;
 }

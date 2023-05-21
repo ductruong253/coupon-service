@@ -4,6 +4,7 @@ import {
   Get,
   NotFoundException,
   Param,
+  Patch,
   Post,
   UseGuards,
 } from '@nestjs/common';
@@ -12,7 +13,7 @@ import { Serialize } from 'src/interceptors/serialize.interceptor';
 import { CreateCouponInfoDto } from './dtos/create-coupon-info.dto';
 import { AuthGuard } from 'src/guards/auth.guard';
 import { CouponInfoDto } from './dtos/coupon-info.dto';
-
+import { UpdateCouponInfoDto } from './dtos/update-coupon-info.dto';
 @Controller('api/coupon/')
 @Serialize(CouponInfoDto)
 @UseGuards(AuthGuard)
@@ -24,7 +25,7 @@ export class CouponInfoController {
     @Param('couponCode') couponCode: string,
     @Param('vendorCode') vendorCode: string,
   ) {
-    const couponInfo = await this.couponInfoService.findByVendorCodeCouponCode(
+    const couponInfo = await this.couponInfoService.findOneByVendorCodeCouponCode(
       vendorCode,
       couponCode,
     );
@@ -49,4 +50,21 @@ export class CouponInfoController {
   create(@Body() body: CreateCouponInfoDto) {
     return this.couponInfoService.create(body);
   }
+
+  @Patch()
+  async update(@Body() body: UpdateCouponInfoDto) {
+    return await this.couponInfoService.updateCouponInfo(body);
+  }
+
+  @Patch('vendorCode/:vendorCode/couponCode/:couponCode')
+  async approveCoupon(
+    @Param('couponCode') couponCode: string,
+    @Param('vendorCode') vendorCode: string,
+  ) {
+    return await this.couponInfoService.approveCouponInfo(
+      vendorCode,
+      couponCode,
+    );
+  }
+
 }
