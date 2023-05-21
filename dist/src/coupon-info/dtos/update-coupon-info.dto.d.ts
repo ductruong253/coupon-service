@@ -1,7 +1,7 @@
 import { CouponTypeEnum } from '../enums/coupon-type.enum';
 import { CurrencyEnum } from '../enums/currency.enum';
 import { CouponStatusEnum } from '../enums/coupon-status.enum';
-export declare class CreateCouponInfoDto {
+export declare class UpdateCouponInfoDto {
     description: string;
     vendorCode: string;
     startDate: Date;
@@ -11,7 +11,7 @@ export declare class CreateCouponInfoDto {
     conditions: string;
     type: CouponTypeEnum;
     status: CouponStatusEnum;
-    discountValue: number;
+    maxDiscountValue: number;
     unit: CurrencyEnum;
     discountPercent: number;
 }

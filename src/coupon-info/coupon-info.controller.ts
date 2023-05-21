@@ -4,7 +4,10 @@ import {
   Get,
   NotFoundException,
   Param,
+  Patch,
   Post,
+  Put,
+  Query,
   UseGuards,
 } from '@nestjs/common';
 import { CouponInfoService } from './coupon-info.service';
@@ -12,6 +15,7 @@ import { Serialize } from 'src/interceptors/serialize.interceptor';
 import { CreateCouponInfoDto } from './dtos/create-coupon-info.dto';
 import { AuthGuard } from 'src/guards/auth.guard';
 import { CouponInfoDto } from './dtos/coupon-info.dto';
+import { UpdateCouponInfoDto } from './dtos/update-coupon-info.dto';
 
 @Controller('api/coupon/')
 @Serialize(CouponInfoDto)
@@ -24,10 +28,11 @@ export class CouponInfoController {
     @Param('couponCode') couponCode: string,
     @Param('vendorCode') vendorCode: string,
   ) {
-    const couponInfo = await this.couponInfoService.findOneByVendorCodeCouponCode(
-      vendorCode,
-      couponCode,
-    );
+    const couponInfo =
+      await this.couponInfoService.findOneByVendorCodeCouponCode(
+        vendorCode,
+        couponCode,
+      );
     if (!couponInfo) {
       throw new NotFoundException('Coupon not found');
     }
@@ -46,7 +51,23 @@ export class CouponInfoController {
   }
 
   @Post()
-  create(@Body() body: CreateCouponInfoDto) {
-    return this.couponInfoService.create(body);
+  async create(@Body() body: CreateCouponInfoDto) {
+    return await this.couponInfoService.create(body);
+  }
+
+  @Patch()
+  async update(@Body() body: UpdateCouponInfoDto) {
+    return await this.couponInfoService.updateCouponInfo(body);
+  }
+
+  @Patch('vendorCode/:vendorCode/couponCode/:couponCode')
+  async approveCoupon(
+    @Param('couponCode') couponCode: string,
+    @Param('vendorCode') vendorCode: string,
+  ) {
+    return await this.couponInfoService.approveCouponInfo(
+      vendorCode,
+      couponCode,
+    );
   }
 }
