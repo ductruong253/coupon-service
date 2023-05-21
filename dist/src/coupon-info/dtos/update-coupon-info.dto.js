@@ -14,6 +14,7 @@ const class_validator_1 = require("class-validator");
 const coupon_type_enum_1 = require("../enums/coupon-type.enum");
 const currency_enum_1 = require("../enums/currency.enum");
 const class_transformer_1 = require("class-transformer");
+const coupon_status_enum_1 = require("../enums/coupon-status.enum");
 class CreateCouponInfoDto {
 }
 __decorate([
@@ -40,7 +41,6 @@ __decorate([
 ], CreateCouponInfoDto.prototype, "couponCode", void 0);
 __decorate([
     (0, class_validator_1.IsNumber)(),
-    (0, class_transformer_1.Type)(() => Number),
     __metadata("design:type", Number)
 ], CreateCouponInfoDto.prototype, "voucherLimit", void 0);
 __decorate([
@@ -52,21 +52,22 @@ __decorate([
     __metadata("design:type", String)
 ], CreateCouponInfoDto.prototype, "type", void 0);
 __decorate([
+    (0, class_validator_1.IsEnum)(coupon_status_enum_1.CouponStatusEnum),
+    __metadata("design:type", String)
+], CreateCouponInfoDto.prototype, "status", void 0);
+__decorate([
     (0, class_validator_1.IsNumber)(),
-    (0, class_transformer_1.Type)(() => Number),
-    (0, class_validator_1.Min)(0),
     __metadata("design:type", Number)
-], CreateCouponInfoDto.prototype, "maxDiscountValue", void 0);
+], CreateCouponInfoDto.prototype, "discountValue", void 0);
 __decorate([
     (0, class_validator_1.IsEnum)(currency_enum_1.CurrencyEnum),
     __metadata("design:type", String)
 ], CreateCouponInfoDto.prototype, "unit", void 0);
 __decorate([
     (0, class_validator_1.IsNumber)(),
-    (0, class_transformer_1.Type)(() => Number),
     (0, class_validator_1.Min)(0),
     (0, class_validator_1.Max)(100),
     __metadata("design:type", Number)
 ], CreateCouponInfoDto.prototype, "discountPercent", void 0);
 exports.CreateCouponInfoDto = CreateCouponInfoDto;
-//# sourceMappingURL=create-coupon-info.dto.js.map
+//# sourceMappingURL=update-coupon-info.dto.js.map

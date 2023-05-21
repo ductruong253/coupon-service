@@ -1,34 +1,33 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import { BadRequestException, Injectable } from '@nestjs/common';
 import { Repository } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
 import { CouponInfo } from './coupon-info.entity';
 import { CreateCouponInfoDto } from './dtos/create-coupon-info.dto';
+import { ApprovalStatusEnum } from './enums/approval-status.enum';
+import { CouponStatusEnum } from './enums/coupon-status.enum';
 
 @Injectable()
 export class CouponInfoService {
+  constructor(
+    @InjectRepository(CouponInfo) private repo: Repository<CouponInfo>,
+  ) {}
 
-    constructor(@InjectRepository(CouponInfo) private repo: Repository<CouponInfo>) {
-
+  async create(createDto: CreateCouponInfoDto) {
+    if (await this.checkExistence(createDto.vendorCode, createDto.couponCode)) {
+      throw new BadRequestException('couponCode existed');
     }
-
-    create(createDto: CreateCouponInfoDto) {
-        const couponInfo = this.repo.create(createDto)
-        return this.repo.save(couponInfo)
-    }
+    const couponInfo = this.repo.create(createDto);
+    couponInfo.approvalStatus = ApprovalStatusEnum.PENDING;
+    couponInfo.createdDate = new Date();
+    couponInfo.isActive = false;
+    couponInfo.currentVoucherCount = 0;
+    couponInfo.status = CouponStatusEnum.CREATED;
+    this.repo.save(couponInfo);
+    return couponInfo;
+  }
 
     findOne(id: number) {
         if (!id) return null
         return this.repo.findOneBy({id});
     }
-
-    private coupons: CouponInfo[] = [
-        { id: 1, description: 'COUPON_10%', vendorCode: 'phuclong01' },
-        { id: 2, description: 'COUPON_FreeShip', vendorCode: 'phuclong02' },
-        { id: 3, description: 'COUPON1_Return', vendorCode: 'phuclong03' },
-        { id: 4, description: 'COUPON1_30%', vendorCode: 'phuclong04' },
-      ];
-    
-    getCouponsByBrandCode(vendorCode: string): CouponInfo[] {
-        return this.coupons.filter(coupon => coupon.vendorCode === vendorCode);
-      }
 }

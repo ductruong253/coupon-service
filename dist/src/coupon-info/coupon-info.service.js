@@ -17,21 +17,43 @@ const common_1 = require("@nestjs/common");
 const typeorm_1 = require("typeorm");
 const typeorm_2 = require("@nestjs/typeorm");
 const coupon_info_entity_1 = require("./coupon-info.entity");
+const approval_status_enum_1 = require("./enums/approval-status.enum");
+const coupon_status_enum_1 = require("./enums/coupon-status.enum");
 let CouponInfoService = class CouponInfoService {
     constructor(repo) {
         this.repo = repo;
     }
-    create(createDto) {
+    async create(createDto) {
+        if (await this.checkExistence(createDto.vendorCode, createDto.couponCode)) {
+            throw new common_1.BadRequestException('couponCode existed');
+        }
         const couponInfo = this.repo.create(createDto);
-        return this.repo.save(couponInfo);
+        couponInfo.approvalStatus = approval_status_enum_1.ApprovalStatusEnum.PENDING;
+        couponInfo.createdDate = new Date();
+        couponInfo.isActive = false;
+        couponInfo.currentVoucherCount = 0;
+        couponInfo.status = coupon_status_enum_1.CouponStatusEnum.CREATED;
+        this.repo.save(couponInfo);
+        return couponInfo;
     }
     findOne(id) {
         if (!id)
             return null;
         return this.repo.findOneBy({ id });
     }
-    find(id) {
-        return this.repo.find({ where: { id } });
+    async findByVendorCodeCouponCode(vendorCode, couponCode) {
+        const coupon = await this.repo.findBy({ vendorCode, couponCode });
+        return coupon;
+    }
+    async findByVendorCode(vendorCode) {
+        const coupon = await this.repo.findBy({ vendorCode });
+        return coupon;
+    }
+    async checkExistence(vendorCode, couponCode) {
+        const coupon = await this.findByVendorCodeCouponCode(vendorCode, couponCode);
+        if (coupon)
+            return true;
+        return false;
     }
 };
 CouponInfoService = __decorate([
