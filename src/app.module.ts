@@ -24,19 +24,17 @@ const cookieSession = require('cookie-session');
           password: config.get('DB_PASSWORD'),
           database: config.get('DB_NAME'),
           synchronize: true,
-          autoLoadEntities: true
-        }
-      }
+          autoLoadEntities: true,
+        };
+      },
     }),
-    CouponInfoModule
+    CouponInfoModule,
   ],
   controllers: [AppController],
   providers: [AppService],
 })
 export class AppModule {
   configure(consumer: MiddlewareConsumer) {
-    consumer
-      .apply(AuthMiddleWare)
-      .forRoutes('*');
+    consumer.apply(AuthMiddleWare).forRoutes('*');
   }
 }
