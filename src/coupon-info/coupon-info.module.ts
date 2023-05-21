@@ -5,10 +5,8 @@ import { CouponInfoService } from './coupon-info.service';
 import { CouponInfo } from './coupon-info.entity';
 
 @Module({
-  imports: [
-    TypeOrmModule.forFeature([CouponInfo])
-  ],
+  imports: [TypeOrmModule.forFeature([CouponInfo])],
   controllers: [CouponInfoController],
-  providers: [CouponInfoService]
+  providers: [CouponInfoService],
 })
 export class CouponInfoModule {}
