@@ -19,6 +19,7 @@ const serialize_interceptor_1 = require("../interceptors/serialize.interceptor")
 const create_coupon_info_dto_1 = require("./dtos/create-coupon-info.dto");
 const auth_guard_1 = require("../guards/auth.guard");
 const coupon_info_dto_1 = require("./dtos/coupon-info.dto");
+const update_coupon_info_dto_1 = require("./dtos/update-coupon-info.dto");
 let CouponInfoController = class CouponInfoController {
     constructor(couponInfoService) {
         this.couponInfoService = couponInfoService;
@@ -37,8 +38,14 @@ let CouponInfoController = class CouponInfoController {
         }
         return couponInfo;
     }
-    create(body) {
-        return this.couponInfoService.create(body);
+    async create(body) {
+        return await this.couponInfoService.create(body);
+    }
+    async update(body) {
+        return await this.couponInfoService.updateCouponInfo(body);
+    }
+    async approveCoupon(couponCode, vendorCode) {
+        return await this.couponInfoService.approveCouponInfo(vendorCode, couponCode);
     }
 };
 __decorate([
@@ -61,8 +68,23 @@ __decorate([
     __param(0, (0, common_1.Body)()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [create_coupon_info_dto_1.CreateCouponInfoDto]),
-    __metadata("design:returntype", void 0)
+    __metadata("design:returntype", Promise)
 ], CouponInfoController.prototype, "create", null);
+__decorate([
+    (0, common_1.Patch)(),
+    __param(0, (0, common_1.Body)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [update_coupon_info_dto_1.UpdateCouponInfoDto]),
+    __metadata("design:returntype", Promise)
+], CouponInfoController.prototype, "update", null);
+__decorate([
+    (0, common_1.Patch)('vendorCode/:vendorCode/couponCode/:couponCode'),
+    __param(0, (0, common_1.Param)('couponCode')),
+    __param(1, (0, common_1.Param)('vendorCode')),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [String, String]),
+    __metadata("design:returntype", Promise)
+], CouponInfoController.prototype, "approveCoupon", null);
 CouponInfoController = __decorate([
     (0, common_1.Controller)('api/coupon/'),
     (0, serialize_interceptor_1.Serialize)(coupon_info_dto_1.CouponInfoDto),

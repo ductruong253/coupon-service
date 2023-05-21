@@ -42,12 +42,39 @@ let CouponInfoService = class CouponInfoService {
         return this.repo.findOneBy({ id });
     }
     async findOneByVendorCodeCouponCode(vendorCode, couponCode) {
-        const coupon = await this.repo.findOneBy({ vendorCode, couponCode });
+        const coupon = await this.repo.findOneBy({
+            vendorCode,
+            couponCode,
+        });
+        if (!coupon)
+            throw new common_1.NotFoundException('coupon not found');
         return coupon;
     }
     async findByVendorCode(vendorCode) {
         const coupon = await this.repo.findBy({ vendorCode });
         return coupon;
+    }
+    async updateCouponInfo(updateDto) {
+        const existingCoupon = await this.findOneByVendorCodeCouponCode(updateDto.vendorCode, updateDto.couponCode);
+        if (existingCoupon.approvalStatus === approval_status_enum_1.ApprovalStatusEnum.APPROVED)
+            throw new common_1.BadRequestException('updating approved coupon is not allowed');
+        existingCoupon.approvalStatus = approval_status_enum_1.ApprovalStatusEnum.PENDING;
+        existingCoupon.description = updateDto.description;
+        existingCoupon.startDate = updateDto.startDate;
+        existingCoupon.endDate = updateDto.endDate;
+        existingCoupon.couponCode = updateDto.couponCode;
+        existingCoupon.voucherLimit = updateDto.voucherLimit;
+        existingCoupon.conditions = updateDto.conditions;
+        existingCoupon.type = updateDto.type;
+        existingCoupon.maxDiscountValue = updateDto.maxDiscountValue;
+        existingCoupon.unit = updateDto.unit;
+        existingCoupon.discountPercent = updateDto.discountPercent;
+        return await this.repo.save(existingCoupon);
+    }
+    async approveCouponInfo(vendorCode, couponCode) {
+        const coupon = await this.findOneByVendorCodeCouponCode(vendorCode, couponCode);
+        coupon.approvalStatus = approval_status_enum_1.ApprovalStatusEnum.APPROVED;
+        return await this.repo.save(coupon);
     }
     async checkExistence(vendorCode, couponCode) {
         const coupon = await this.findOneByVendorCodeCouponCode(vendorCode, couponCode);

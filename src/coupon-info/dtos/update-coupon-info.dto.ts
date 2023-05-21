@@ -4,7 +4,7 @@ import { CurrencyEnum } from '../enums/currency.enum';
 import { Type } from 'class-transformer';
 import { CouponStatusEnum } from '../enums/coupon-status.enum';
 
-export class CreateCouponInfoDto {
+export class UpdateCouponInfoDto {
   @IsString()
   description: string;
 
@@ -35,7 +35,7 @@ export class CreateCouponInfoDto {
   status: CouponStatusEnum;
 
   @IsNumber()
-  discountValue: number;
+  maxDiscountValue: number;
 
   @IsEnum(CurrencyEnum)
   unit: CurrencyEnum;
