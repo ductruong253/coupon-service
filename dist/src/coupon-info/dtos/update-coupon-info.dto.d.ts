@@ -1,6 +1,6 @@
-import { CouponTypeEnum } from "../enums/coupon-type.enum";
-import { CurrencyEnum } from "../enums/currency.enum";
-import { CouponStatusEnum } from "../enums/coupon-status.enum";
+import { CouponTypeEnum } from '../enums/coupon-type.enum';
+import { CurrencyEnum } from '../enums/currency.enum';
+import { CouponStatusEnum } from '../enums/coupon-status.enum';
 export declare class CreateCouponInfoDto {
     description: string;
     vendorCode: string;

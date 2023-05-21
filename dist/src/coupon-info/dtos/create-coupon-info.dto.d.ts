@@ -1,5 +1,5 @@
-import { CouponTypeEnum } from "../enums/coupon-type.enum";
-import { CurrencyEnum } from "../enums/currency.enum";
+import { CouponTypeEnum } from '../enums/coupon-type.enum';
+import { CurrencyEnum } from '../enums/currency.enum';
 export declare class CreateCouponInfoDto {
     description: string;
     vendorCode: string;
@@ -12,4 +12,5 @@ export declare class CreateCouponInfoDto {
     maxDiscountValue: number;
     unit: CurrencyEnum;
     discountPercent: number;
+    createdBy: string;
 }

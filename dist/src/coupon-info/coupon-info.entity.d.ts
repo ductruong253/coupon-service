@@ -20,4 +20,5 @@ export declare class CouponInfo {
     maxDiscountValue: number;
     unit: CurrencyEnum;
     discountPercent: number;
+    createdBy: string;
 }

@@ -44,4 +44,7 @@ export class CreateCouponInfoDto {
   @Min(0)
   @Max(100)
   discountPercent: number;
+
+  @IsString()
+  createdBy: string;
 }

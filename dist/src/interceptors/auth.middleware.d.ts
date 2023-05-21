@@ -1,6 +1,6 @@
-import { NestMiddleware } from "@nestjs/common";
-import { ConfigService } from "@nestjs/config";
-import { Response, Request, NextFunction } from "express";
+import { NestMiddleware } from '@nestjs/common';
+import { ConfigService } from '@nestjs/config';
+import { Response, Request, NextFunction } from 'express';
 declare global {
     namespace Express {
         interface Request {

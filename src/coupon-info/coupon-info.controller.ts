@@ -24,7 +24,7 @@ export class CouponInfoController {
     @Param('couponCode') couponCode: string,
     @Param('vendorCode') vendorCode: string,
   ) {
-    const couponInfo = await this.couponInfoService.findByVendorCodeCouponCode(
+    const couponInfo = await this.couponInfoService.findOneByVendorCodeCouponCode(
       vendorCode,
       couponCode,
     );

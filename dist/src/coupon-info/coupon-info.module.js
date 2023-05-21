@@ -16,11 +16,9 @@ let CouponInfoModule = class CouponInfoModule {
 };
 CouponInfoModule = __decorate([
     (0, common_1.Module)({
-        imports: [
-            typeorm_1.TypeOrmModule.forFeature([coupon_info_entity_1.CouponInfo])
-        ],
+        imports: [typeorm_1.TypeOrmModule.forFeature([coupon_info_entity_1.CouponInfo])],
         controllers: [coupon_info_controller_1.CouponInfoController],
-        providers: [coupon_info_service_1.CouponInfoService]
+        providers: [coupon_info_service_1.CouponInfoService],
     })
 ], CouponInfoModule);
 exports.CouponInfoModule = CouponInfoModule;

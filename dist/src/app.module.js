@@ -17,9 +17,7 @@ const coupon_info_module_1 = require("./coupon-info/coupon-info.module");
 const cookieSession = require('cookie-session');
 let AppModule = class AppModule {
     configure(consumer) {
-        consumer
-            .apply(auth_middleware_1.AuthMiddleWare)
-            .forRoutes('*');
+        consumer.apply(auth_middleware_1.AuthMiddleWare).forRoutes('*');
     }
 };
 AppModule = __decorate([
@@ -40,11 +38,11 @@ AppModule = __decorate([
                         password: config.get('DB_PASSWORD'),
                         database: config.get('DB_NAME'),
                         synchronize: true,
-                        autoLoadEntities: true
+                        autoLoadEntities: true,
                     };
-                }
+                },
             }),
-            coupon_info_module_1.CouponInfoModule
+            coupon_info_module_1.CouponInfoModule,
         ],
         controllers: [app_controller_1.AppController],
         providers: [app_service_1.AppService],
