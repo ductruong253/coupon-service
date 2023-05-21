@@ -1,8 +1,8 @@
-import { ApprovalStatusEnum } from './enums/approval-status.enum';
-import { CouponTypeEnum } from './enums/coupon-type.enum';
-import { CurrencyEnum } from './enums/currency.enum';
-import { CouponStatusEnum } from './enums/coupon-status.enum';
-export declare class CouponInfo {
+import { ApprovalStatusEnum } from "../enums/approval-status.enum";
+import { CouponTypeEnum } from "../enums/coupon-type.enum";
+import { CurrencyEnum } from "../enums/currency.enum";
+import { CouponStatusEnum } from "../enums/coupon-status.enum";
+export declare class CouponInfoDto {
     id: number;
     description: string;
     vendorCode: string;
@@ -11,8 +11,8 @@ export declare class CouponInfo {
     createdDate: Date;
     couponCode: string;
     approvalStatus: ApprovalStatusEnum;
-    isActive: boolean;
     status: CouponStatusEnum;
+    isActive: boolean;
     currentVoucherCount: number;
     voucherLimit: number;
     conditions: string;

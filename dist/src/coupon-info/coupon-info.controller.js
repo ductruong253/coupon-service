@@ -17,14 +17,23 @@ const common_1 = require("@nestjs/common");
 const coupon_info_service_1 = require("./coupon-info.service");
 const serialize_interceptor_1 = require("../interceptors/serialize.interceptor");
 const create_coupon_info_dto_1 = require("./dtos/create-coupon-info.dto");
+const auth_guard_1 = require("../guards/auth.guard");
+const coupon_info_dto_1 = require("./dtos/coupon-info.dto");
 let CouponInfoController = class CouponInfoController {
     constructor(couponInfoService) {
         this.couponInfoService = couponInfoService;
     }
-    async findCouponInfo(id) {
-        const couponInfo = await this.couponInfoService.findOne(parseInt(id));
+    async findCouponInfoByCode(couponCode, vendorCode) {
+        const couponInfo = await this.couponInfoService.findByVendorCodeCouponCode(vendorCode, couponCode);
         if (!couponInfo) {
-            throw new common_1.NotFoundException('Coupon info not found');
+            throw new common_1.NotFoundException('Coupon not found');
+        }
+        return couponInfo;
+    }
+    async findCouponVendorCode(vendorCode) {
+        const couponInfo = await this.couponInfoService.findByVendorCode(vendorCode);
+        if (!couponInfo) {
+            throw new common_1.NotFoundException('Coupon not found');
         }
         return couponInfo;
     }
@@ -33,22 +42,31 @@ let CouponInfoController = class CouponInfoController {
     }
 };
 __decorate([
-    (0, common_1.Get)('/:id'),
-    __param(0, (0, common_1.Param)('id')),
+    (0, common_1.Get)('vendorCode/:vendorCode/couponCode/:couponCode'),
+    __param(0, (0, common_1.Param)('couponCode')),
+    __param(1, (0, common_1.Param)('vendorCode')),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [String, String]),
+    __metadata("design:returntype", Promise)
+], CouponInfoController.prototype, "findCouponInfoByCode", null);
+__decorate([
+    (0, common_1.Get)('vendorCode/:vendorCode'),
+    __param(0, (0, common_1.Param)('vendorCode')),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [String]),
     __metadata("design:returntype", Promise)
-], CouponInfoController.prototype, "findCouponInfo", null);
+], CouponInfoController.prototype, "findCouponVendorCode", null);
 __decorate([
     (0, common_1.Post)(),
-    (0, serialize_interceptor_1.Serialize)(create_coupon_info_dto_1.CreateCouponInfoDto),
     __param(0, (0, common_1.Body)()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [create_coupon_info_dto_1.CreateCouponInfoDto]),
     __metadata("design:returntype", void 0)
 ], CouponInfoController.prototype, "create", null);
 CouponInfoController = __decorate([
-    (0, common_1.Controller)('api/coupon-info'),
+    (0, common_1.Controller)('api/coupon/'),
+    (0, serialize_interceptor_1.Serialize)(coupon_info_dto_1.CouponInfoDto),
+    (0, common_1.UseGuards)(auth_guard_1.AuthGuard),
     __metadata("design:paramtypes", [coupon_info_service_1.CouponInfoService])
 ], CouponInfoController);
 exports.CouponInfoController = CouponInfoController;

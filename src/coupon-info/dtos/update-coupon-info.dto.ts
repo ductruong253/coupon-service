@@ -2,6 +2,7 @@ import { IsDate, IsEnum, IsNumber, IsString, Max, Min } from "class-validator";
 import { CouponTypeEnum } from "../enums/coupon-type.enum";
 import { CurrencyEnum } from "../enums/currency.enum";
 import { Type } from "class-transformer";
+import { CouponStatusEnum } from "../enums/coupon-status.enum";
 
 export class CreateCouponInfoDto {
     @IsString()
@@ -22,7 +23,6 @@ export class CreateCouponInfoDto {
     couponCode: string
 
     @IsNumber()
-    @Type(() => Number)
     voucherLimit: number
 
     @IsString()
@@ -31,16 +31,16 @@ export class CreateCouponInfoDto {
     @IsEnum(CouponTypeEnum)
     type: CouponTypeEnum
 
+    @IsEnum(CouponStatusEnum)
+    status: CouponStatusEnum
+
     @IsNumber()
-    @Type(() => Number)
-    @Min(0)
-    maxDiscountValue: number
+    discountValue: number
 
     @IsEnum(CurrencyEnum)
     unit: CurrencyEnum
 
     @IsNumber()
-    @Type(() => Number)
     @Min(0)
     @Max(100)
     discountPercent: number
